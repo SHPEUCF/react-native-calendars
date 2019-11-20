@@ -247,6 +247,7 @@ export default class AgendaView extends Component {
 
   _chooseDayFromCalendar(d) {
     this.chooseDay(d, !this.state.calendarScrollable);
+    this.props.passDate(d)
   }
 
   chooseDay(d, optimisticScroll) {
