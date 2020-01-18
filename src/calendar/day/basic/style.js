@@ -7,9 +7,9 @@ export default function styleConstructor(theme={}) {
   const appStyle = {...defaultStyle, ...theme};
   return StyleSheet.create({
     base: {
-      width: 32,
+      width: 29,
       height: 32,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     text: {
       marginTop: Platform.OS === 'android' ? 4 : 6,

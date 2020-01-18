@@ -3,6 +3,7 @@ import {Text, View} from 'react-native';
 import Calendar from '../calendar';
 import styleConstructor from './style';
 
+let cal = ""
 
 class CalendarListItem extends Component {
   static displayName = 'IGNORE';
@@ -15,6 +16,10 @@ class CalendarListItem extends Component {
   constructor(props) {
     super(props);
     this.style = styleConstructor(props.theme);
+  }
+
+  chooseToday(day){
+    cal.chooseToday(day)
   }
 
   shouldComponentUpdate(nextProps) {
@@ -51,6 +56,9 @@ class CalendarListItem extends Component {
     if (row.getTime) {
       return (
         <Calendar
+          ref={(c) => {
+            if (c !== null) cal = c}
+          }
           theme={this.props.theme}
           style={[{height: this.props.calendarHeight, width: this.props.calendarWidth}, this.style.calendar, this.props.style]}
           current={row}

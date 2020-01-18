@@ -1,3 +1,6 @@
+import {Dimensions} from 'react-native';
+const dimension = Dimensions.get('window');
+
 export default function platformStyles(appStyle) {
   return {
     knob: {
@@ -9,16 +12,18 @@ export default function platformStyles(appStyle) {
     },
     weekdays: {
       position: 'absolute',
+      alignItems: "center",
+      bottom: dimension.height - dimension.height * .35,
       left: 0,
       right: 0,
       top: 0,
       flexDirection: 'row',
-      justifyContent: 'space-around',
-      marginLeft: 15,
-      marginRight: 15,
+      justifyContent: 'space-evenly',
+      paddingLeft: 16,
+      paddingRight: 16,
       paddingTop: 15,
       paddingBottom: 7,
-      backgroundColor: appStyle.calendarBackground
+      backgroundColor: appStyle.calendarBackground,
     },
   };
 }

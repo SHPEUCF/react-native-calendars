@@ -10,6 +10,7 @@ import XDate from 'xdate';
 
 import dateutils from '../../dateutils';
 import styleConstructor from './style';
+import _ from 'lodash';
 
 class ReactComp extends Component {
   static displayName = 'IGNORE';
@@ -50,11 +51,14 @@ class ReactComp extends Component {
     this.scrollOver = true;
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.updateDataSource(this.getReservations(this.props).reservations);
   }
 
   updateDataSource(reservations) {
+
+    reservations = _.orderBy(reservations, ['reservation.startTime', 'reservation.endTime'], ['asc', 'asc']);  
+
     this.setState({
       reservations
     });
@@ -156,19 +160,6 @@ class ReactComp extends Component {
       return {reservations: [], scrollPosition: 0};
     }
     let reservations = [];
-    if (this.state.reservations && this.state.reservations.length) {
-      const iterator = this.state.reservations[0].day.clone();
-      while (iterator.getTime() < props.selectedDay.getTime()) {
-        const res = this.getReservationsForDay(iterator, props);
-        if (!res) {
-          reservations = [];
-          break;
-        } else {
-          reservations = reservations.concat(res);
-        }
-        iterator.addDays(1);
-      }
-    }
     const scrollPosition = reservations.length;
     const iterator = props.selectedDay.clone();
     for (let i = 0; i < 1; i++) {
@@ -192,21 +183,23 @@ class ReactComp extends Component {
       );
     }
     return (
-      <FlatList
-        ref={(c) => this.list = c}
-        style={this.props.style}
-        contentContainerStyle={this.styles.content}
-        renderItem={this.renderRow.bind(this)}
-        data={this.state.reservations}
-        onScroll={this.onScroll.bind(this)}
-        showsVerticalScrollIndicator={false}
-        scrollEventThrottle={200}
-        onMoveShouldSetResponderCapture={() => {this.onListTouch(); return false;}}
-        keyExtractor={(item, index) => String(index)}
-        refreshControl={this.props.refreshControl}
-        refreshing={this.props.refreshing || false}
-        onRefresh={this.props.onRefresh}
-      />
+      <View>
+        <FlatList
+          ref={(c) => this.list = c}
+          style={this.props.style}
+          contentContainerStyle={this.styles.content}
+          renderItem={this.renderRow.bind(this)}
+          data={this.state.reservations}
+          onScroll={this.onScroll.bind(this)}
+          showsVerticalScrollIndicator={false}
+          scrollEventThrottle={200}
+          onMoveShouldSetResponderCapture={() => {this.onListTouch(); return false;}}
+          keyExtractor={(item, index) => String(index)}
+          refreshControl={this.props.refreshControl}
+          refreshing={this.props.refreshing || false}
+          onRefresh={this.props.onRefresh}
+        />
+      </View>
     );
   }
 }

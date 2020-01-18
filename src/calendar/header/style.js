@@ -9,10 +9,8 @@ export default function(theme={}) {
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      paddingLeft: 10,
-      paddingRight: 10,
       marginTop: 6,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     monthText: {
       fontSize: appStyle.textMonthFontSize,
@@ -38,12 +36,12 @@ export default function(theme={}) {
     week: {
       marginTop: 7,
       flexDirection: 'row',
-      justifyContent: 'space-around'
+      justifyContent: 'space-evenly',
     },
     dayHeader: {
+      width: "8%",
       marginTop: 2,
       marginBottom: 7,
-      width: 32,
       textAlign: 'center',
       fontSize: appStyle.textDayHeaderFontSize,
       fontFamily: appStyle.textDayHeaderFontFamily,

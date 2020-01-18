@@ -1,8 +1,10 @@
 import {StyleSheet} from 'react-native';
 import * as defaultStyle from '../style';
 import platformStyles from './platform-style';
+import {Dimensions} from 'react-native';
 
 const STYLESHEET_ID = 'stylesheet.agenda.main';
+const dimension = Dimensions.get('window');
 
 export default function styleConstructor(theme = {}) {
   const appStyle = {...defaultStyle, ...theme};
@@ -27,7 +29,7 @@ export default function styleConstructor(theme = {}) {
       position: 'absolute',
       left: 0,
       right: 0,
-      height: 24,
+      height: dimension.height* .04,
       bottom: 0,
       alignItems: 'center',
       backgroundColor: appStyle.calendarBackground
@@ -42,7 +44,7 @@ export default function styleConstructor(theme = {}) {
     },
     reservations: {
       flex: 1,
-      marginTop: 104,
+      marginTop: dimension.height*.18,
       backgroundColor: appStyle.backgroundColor
     },
     ...(theme[STYLESHEET_ID] || {})

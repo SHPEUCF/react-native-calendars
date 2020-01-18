@@ -205,6 +205,7 @@ class CalendarList extends Component {
   renderCalendar({item}) {
     return (
       <CalendarListItem
+        ref={child => {this.child = child}} {...this.props}
         scrollToMonth={this.scrollToMonth.bind(this)}
         item={item} 
         calendarHeight={this.props.calendarHeight} 
@@ -213,6 +214,10 @@ class CalendarList extends Component {
         style={this.props.calendarStyle}
       />
     );
+  }
+
+  chooseToday(day){
+    this.child.chooseToday(day)
   }
 
   getItemLayout(data, index) {

@@ -139,6 +139,10 @@ class Calendar extends Component {
     }
   }
 
+  chooseToday(day){
+    this.pressDay(day)
+  }
+
   pressDay(date) {
     this._handleDayInteraction(date, this.props.onDayPress);
   }
@@ -165,16 +169,28 @@ class Calendar extends Component {
       state = 'today';
     }
 
-    if (!dateutils.sameMonth(day, this.state.currentMonth) && this.props.hideExtraDays) {
-      return (<View key={id} style={{flex: 1}}/>);
-    }
-
     const DayComp = this.getDayComponent();
     const date = day.getDate();
     const dateAsObject = xdateToData(day);
 
+    if (!dateutils.sameMonth(day, this.state.currentMonth) && this.props.hideExtraDays) {
+      return (<View style={{width: "8%"}} key={id}>
+        <DayComp
+          testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
+          state={state}
+          theme={this.props.theme}
+          onPress={this.pressDay}
+          onLongPress={this.longPressDay}
+          date={dateAsObject}
+          marking={this.getDateMarking(day)}
+        >
+          {date}
+        </DayComp>
+      </View>);
+    }
+
     return (
-      <View style={{flex: 1, alignItems: 'center'}} key={id}>
+      <View style={{width: "8%"}} key={id}>
         <DayComp
           testID={`${SELECT_DATE_SLOT}-${dateAsObject.dateString}`}
           state={state}

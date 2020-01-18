@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Dimensions, Animated, ViewPropTypes} from 'react-native';
+import {Text, View, Dimensions, Animated, ViewPropTypes, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import XDate from 'xdate';
 
@@ -10,8 +10,9 @@ import ReservationsList from './reservation-list';
 import styleConstructor from './style';
 import {VelocityTracker} from '../input';
 
+const dimension = Dimensions.get('window');
 
-const HEADER_HEIGHT = 104;
+const HEADER_HEIGHT = dimension.height *.18;
 const KNOB_HEIGHT = 24;
 //Fallback when RN version is < 0.44
 const viewPropTypes = ViewPropTypes || View.propTypes;
@@ -122,7 +123,7 @@ export default class AgendaView extends Component {
   }
 
   initialScrollPadPosition() {
-    return Math.max(0, this.viewHeight - HEADER_HEIGHT);
+    return dimension.height * .7;
   }
 
   setScrollPadPosition(y, animated) {
@@ -151,7 +152,14 @@ export default class AgendaView extends Component {
     }
   }
 
-  onTouchEnd() {
+  onTouchEnd(e) {
+
+    if(e === "closed"){
+      this.setScrollPadPosition(0, true);
+      this.enableCalendarScrolling();
+      return
+    }
+
     if (this.knob) {
       this.knob.setNativeProps({style: {opacity: 1}});
     }
@@ -159,6 +167,7 @@ export default class AgendaView extends Component {
     if (this.headerState === 'touched') {
       this.setScrollPadPosition(0, true);
       this.enableCalendarScrolling();
+      this.props.setPos("opened")
     }
 
     this.headerState = 'idle';
@@ -170,6 +179,20 @@ export default class AgendaView extends Component {
   }
 
   onSnapAfterDrag(e) {
+
+    if (e === "closed"){
+      this.onTouchEnd(e)
+      return
+    }
+
+    if (e === "opened"){
+      this.setScrollPadPosition(this.initialScrollPadPosition(), true);
+      this.setState({
+        calendarScrollable: false,
+      });
+      return
+    }
+
     // on Android onTouchEnd is not called if dragging was started
     this.onTouchEnd();
     const currentY = e.nativeEvent.contentOffset.y;
@@ -177,11 +200,16 @@ export default class AgendaView extends Component {
     const projectedY = currentY + this.knobTracker.estimateSpeed() * 250/*ms*/;
     const maxY = this.initialScrollPadPosition();
     const snapY = (projectedY > maxY / 2) ? maxY : 0;
+
     this.setScrollPadPosition(snapY, true);
     
     if (snapY === 0) {
       this.enableCalendarScrolling();
+      this.props.setPos("opened")
     }
+
+    else this.props.setPos("closed")
+
   }
 
   onVisibleMonthsChange(months) {
@@ -269,6 +297,7 @@ export default class AgendaView extends Component {
     }
 
     this.setScrollPadPosition(this.initialScrollPadPosition(), true);
+    this.props.setPos("closed")
     this.calendar.scrollToDay(day, this.calendarOffset(), true);
     
     if (this.props.loadItemsForMonth) {
@@ -283,6 +312,7 @@ export default class AgendaView extends Component {
   renderReservations() {
     return (
       <ReservationsList
+        key={JSON.stringify(this.props.items)+this.props.dashColor}
         refreshControl={this.props.refreshControl}
         refreshing={this.props.refreshing}
         onRefresh={this.props.onRefresh}
@@ -314,6 +344,10 @@ export default class AgendaView extends Component {
     if (this.props.onDayChange) {
       this.props.onDayChange(xdateToData(newDate));
     }
+  }
+
+  chooseToday(){
+    this.calendar.chooseToday(XDate(true))
   }
 
   generateMarkings() {
@@ -394,7 +428,7 @@ export default class AgendaView extends Component {
         </View>
       );
     }
-
+  
     return (
       <View onLayout={this.onLayout} style={[this.props.style, {flex: 1, overflow: 'hidden'}]}>
         <View style={this.styles.reservations}>
@@ -409,7 +443,7 @@ export default class AgendaView extends Component {
               calendarWidth={this.viewWidth}
               theme={this.props.theme}
               onVisibleMonthsChange={this.onVisibleMonthsChange.bind(this)}
-              ref={(c) => this.calendar = c}
+              ref={(c) => {this.calendar = c}}
               minDate={this.props.minDate}
               maxDate={this.props.maxDate}
               current={this.currentMonth}
@@ -434,7 +468,9 @@ export default class AgendaView extends Component {
         <Animated.View style={weekdaysStyle}>
           {this.props.showWeekNumbers && <Text allowFontScaling={false} style={this.styles.weekday} numberOfLines={1}></Text>}
           {weekDaysNames.map((day, index) => (
-            <Text allowFontScaling={false} key={day+index} style={this.styles.weekday} numberOfLines={1}>{day}</Text>
+            <View style={{width: "8%", alignItems: "center"}}>
+              <Text allowFontScaling={false} key={day+index} style={this.styles.weekday} numberOfLines={1}>{day}</Text>
+            </View>
           ))}
         </Animated.View>
         <Animated.ScrollView
