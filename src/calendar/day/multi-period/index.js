@@ -94,12 +94,7 @@ class Day extends Component {
         style={{
           alignSelf: 'stretch'
         }}>
-        <TouchableOpacity 
-          testID={this.props.testID} 
-          style={containerStyle} 
-          onPress={this.onDayPress}
-          disabled={marking.disableTouchEvent}
-        >
+        <TouchableOpacity testID={this.props.testID} style={containerStyle} onPress={this.onDayPress}>
           <Text allowFontScaling={false} style={textStyle}>
             {String(this.props.children)}
           </Text>

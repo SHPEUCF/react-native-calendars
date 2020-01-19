@@ -110,7 +110,7 @@ LocaleConfig.defaultLocale = 'fr';
   showWeekNumbers={true}
   // Handler which gets executed when press arrow icon left. It receive a callback can go back month
   onPressArrowLeft={substractMonth => substractMonth()}
-  // Handler which gets executed when press arrow icon right. It receive a callback can go next month
+  // Handler which gets executed when press arrow icon left. It receive a callback can go next month
   onPressArrowRight={addMonth => addMonth()}
 />
 ```
@@ -472,7 +472,7 @@ An advanced agenda component that can display interactive listings for calendar 
 
 ## Authors
 
-* [Tautvilas Mecinskas](https://github.com/tautvilas/) - Initial code - [@tautvilas](https://twitter.com/Tautvilas)
+* [Tautvilas Mecinskas](https://github.com/tautvilas/) - Initial code - [@tautvilas](https://twitter.com/TautviIas)
 * Katrin Zotchev - Initial design - [@katrin_zot](https://twitter.com/katrin_zot)
 
 See also the list of [contributors](https://github.com/wix/react-native-calendar-components/contributors) who participated in this project.

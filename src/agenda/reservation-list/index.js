@@ -51,11 +51,7 @@ class ReactComp extends Component {
     this.scrollOver = true;
   }
 
-<<<<<<< HEAD
   componentDidMount() {
-=======
-  UNSAFE_componentWillMount() {
->>>>>>> upstream/master
     this.updateDataSource(this.getReservations(this.props).reservations);
   }
 
@@ -82,7 +78,7 @@ class ReactComp extends Component {
     this.updateDataSource(reservations.reservations);
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
+  componentWillReceiveProps(props) {
     if (!dateutils.sameDate(props.topDay, this.props.topDay)) {
       this.setState({
         reservations: []

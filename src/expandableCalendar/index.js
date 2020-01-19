@@ -428,10 +428,8 @@ class ExpandableCalendar extends Component {
           {...this.props}
           current={this.props.context.date}
           onDayPress={this.onDayPress}
-          markedDates={this.getMarkedDates()} // for Week component
+          markedDates={this.getMarkedDates()}
           style={this.props.calendarStyle}
-          allowShadow={false}
-          hideDayNames={true}
         />
       </Animated.View>
     );
@@ -448,7 +446,7 @@ class ExpandableCalendar extends Component {
 
   renderArrow = (direction) => {
     if (_.isFunction(this.props.renderArrow)) {
-      return this.props.renderArrow(direction);
+      this.props.renderArrow(direction);
     }
 
     return (

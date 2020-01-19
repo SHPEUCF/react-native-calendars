@@ -119,7 +119,7 @@ export default class AgendaView extends Component {
   }
 
   calendarOffset() {
-    return 96 - (this.viewHeight / 2);
+    return 90 - (this.viewHeight / 2);
   }
 
   initialScrollPadPosition() {
@@ -235,7 +235,7 @@ export default class AgendaView extends Component {
     }
   }
 
-  UNSAFE_componentWillMount() {
+  componentWillMount() {
     this._isMounted = true;
     this.loadReservations(this.props);
   }
@@ -244,7 +244,7 @@ export default class AgendaView extends Component {
     this._isMounted = false;
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
+  componentWillReceiveProps(props) {
     if (props.items) {
       this.setState({
         firstResevationLoad: false
@@ -367,7 +367,7 @@ export default class AgendaView extends Component {
   }
 
   render() {
-    const agendaHeight = this.initialScrollPadPosition();
+    const agendaHeight = Math.max(0, this.viewHeight - HEADER_HEIGHT);
     const weekDaysNames = dateutils.weekDayNames(this.props.firstDay);
     
     const weekdaysStyle = [this.styles.weekdays, {

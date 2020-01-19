@@ -83,9 +83,7 @@ class Day extends Component {
         testID={this.props.testID}
         style={containerStyle}
         onPress={this.onDayPress}
-        onLongPress={this.onDayLongPress}
-        disabled={marking.disableTouchEvent}
-      >
+        onLongPress={this.onDayLongPress}>
         <Text allowFontScaling={false} style={textStyle}>{String(this.props.children)}</Text>
         <View style={{flexDirection: 'row'}}>{dot}</View>
       </TouchableOpacity>
