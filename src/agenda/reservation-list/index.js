@@ -51,11 +51,7 @@ class ReactComp extends Component {
     this.scrollOver = true;
   }
 
-<<<<<<< HEAD
   componentDidMount() {
-=======
-  UNSAFE_componentWillMount() {
->>>>>>> upstream/master
     this.updateDataSource(this.getReservations(this.props).reservations);
   }
 
