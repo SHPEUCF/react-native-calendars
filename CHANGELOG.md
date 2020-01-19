@@ -121,3 +121,51 @@
 ## [1.217.0] - 2019-12-24
 ### Fix
 - Week - moving width style to WeekCalendar.
+
+## [1.218.0] - 2020-1-12
+### Added
+- AgendaList - allow text transform override for section header text.
+
+## [1.221.0] - 2020-1-16
+### Fix 
+- ExpandableCalendar - fix renderArrow function (PR #1037).
+
+## [1.223.0] - 2020-1-16
+### Added
+- WeekCalendar - new component.
+
+## [1.224.0] - 2020-1-16
+### Added
+- AgendaList - allow passing keyExtractor.
+
+## [1.225.0] - 2020-1-19
+### Fix
+- package.json - adding hoist-non-react-statics dependency (fix issue #900).
+
+## [1.226.0] - 2020-1-19
+### Added
+- Life cycle methods - renaming with UNSAFE_ prefix componentWillMount, componentWillReceiveProps.
+
+## [1.227.0] - 2020-1-19
+### Added
+- AgendaList - allow passing 'stickySectionHeadersEnabled' (PR #1004).
+
+## [1.228.0] - 2020-1-19
+### Fix
+- Day custom - fix for selectedDayTextColor not working (PR #995).
+
+## [1.229.0] - 2020-1-19
+### Added
+- Calendar - adding ref to CalendarHeader (PR #986).
+
+## [1.230.0] - 2020-1-19
+### Fix
+- Agenda - fix for calendar offset (PR #953).
+
+## [1.231.0] - 2020-1-19
+### Change
+- Agenda - use initialScrollPadPosition() (PR #948).
+
+## [1.232.0] - 2020-1-19
+### Fix
+- Day components - fix for 'disableTouchEvent' marking to disable interactions for all marking types.
