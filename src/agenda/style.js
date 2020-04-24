@@ -3,12 +3,14 @@ import * as defaultStyle from '../style';
 import platformStyles from './platform-style';
 import {Dimensions} from 'react-native';
 
+
 const STYLESHEET_ID = 'stylesheet.agenda.main';
 const dimension = Dimensions.get('window');
 
 export default function styleConstructor(theme = {}) {
   const appStyle = {...defaultStyle, ...theme};
-  const { knob, weekdays } = platformStyles(appStyle);
+  const {knob, weekdays} = platformStyles(appStyle);
+  
   return StyleSheet.create({
     knob,
     weekdays,
@@ -17,12 +19,7 @@ export default function styleConstructor(theme = {}) {
       justifyContent: 'flex-end',
       position:'absolute',
       height:'100%',
-      width:'100%',
-    },
-    calendar: { // not in use
-      flex: 1,
-      borderBottomWidth: 1,
-      borderColor: appStyle.separatorColor
+      width:'100%'
     },
     knobContainer: {
       flex: 1,

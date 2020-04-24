@@ -24,11 +24,12 @@ class WeekCalendar extends Component {
     super(props);
 
     this.style = styleConstructor(props.theme);
+
     this.list = React.createRef();
     this.page = NUMBER_OF_PAGES;
 
     this.state = {
-      items: this.getDatesArray(),
+      items: this.getDatesArray()
     };
   }
 
@@ -134,22 +135,41 @@ class WeekCalendar extends Component {
     const {items} = this.state;
 
     return (
-      <FlatList
-        ref={this.list}
-        data={items}
-        extraData={this.props.current}
-        style={this.style.container}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        pagingEnabled
-        scrollEnabled
-        renderItem={this.renderItem}
-        keyExtractor={this.keyExtractor}
-        initialScrollIndex={NUMBER_OF_PAGES}
-        getItemLayout={this.getItemLayout}
-        onScroll={this.onScroll}
-        onMomentumScrollEnd={this.onMomentumScrollEnd}
-      />
+      <View testID={this.props.testID} style={[allowShadow && this.style.containerShadow, !hideDayNames && {paddingBottom: 6}]}>
+        {!hideDayNames &&
+          <View style={[this.style.week, {marginTop: 12, marginBottom: -2}]}>
+            {/* {this.props.weekNumbers && <Text allowFontScaling={false} style={this.style.dayHeader}></Text>} */}
+            {weekDaysNames.map((day, idx) => (
+              <Text 
+                allowFontScaling={false} 
+                key={idx} 
+                style={this.style.dayHeader} 
+                numberOfLines={1} 
+                accessibilityLabel={''}
+                // accessible={false} // not working
+                // importantForAccessibility='no'
+              >
+                {day}
+              </Text>
+            ))}
+          </View>}
+        <FlatList
+          ref={this.list}
+          data={items}
+          extraData={this.props.current || this.props.context.date}
+          style={this.style.container}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          pagingEnabled
+          scrollEnabled
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
+          initialScrollIndex={NUMBER_OF_PAGES}
+          getItemLayout={this.getItemLayout}
+          onScroll={this.onScroll}
+          onMomentumScrollEnd={this.onMomentumScrollEnd}
+        />
+      </View>
     );
   }
 }

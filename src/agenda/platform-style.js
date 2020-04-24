@@ -24,7 +24,7 @@ export default function platformStyles(appStyle) {
       justifyContent: 'space-evenly',
       paddingTop: 15,
       paddingBottom: 7,
-      backgroundColor: appStyle.calendarBackground,
-    },
+      backgroundColor: appStyle.calendarBackground
+    }
   };
 }
